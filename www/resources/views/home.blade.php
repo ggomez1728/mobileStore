@@ -10,8 +10,12 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+                <div class="panel-body">
+                    {!! QrCode::size(400)->generate('Make me into a QrCode!') !!}
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+

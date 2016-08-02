@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use SimpleSoftwareIO\QrCode\BaconQrCodeGenerator;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -24,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $qrcode = new BaconQrCodeGenerator;
+        $qrcode->size(500)->generate('Make a qrcode without Laravel!');
+        return view('home', compact('qrcode'));
     }
 }

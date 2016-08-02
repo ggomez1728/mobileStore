@@ -156,6 +156,22 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Qr-Code
+         */
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        /*
+         * Scaffolfing
+         */
+        Laralib\L5scaffold\GeneratorsServiceProvider::class,
+
+        /*
+         * Laravel Colective
+         */
+        Collective\Html\HtmlServiceProvider::class,
+
+
     ],
 
     /*
@@ -201,7 +217,16 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        /*
+         * Qr-Code
+         */
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
+        /*
+         * Laravel Colective
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

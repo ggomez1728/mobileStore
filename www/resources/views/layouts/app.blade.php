@@ -40,14 +40,24 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    hackersquad
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/home') }}">Inicio</a></li>
+                    <li><a href="{{ url('/clients') }}">Clientes</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Configuración
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/mobiles') }}">Moviles</a></li>
+                            <li><a href="{{ url('/features') }}">Caracteristicas</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->
