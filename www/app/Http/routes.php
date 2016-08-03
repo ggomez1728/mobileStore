@@ -23,3 +23,4 @@ Route::resource("/mobiles","MobileController");
 Route::resource("features","FeatureController");
 
 Route::resource("clients","ClientController");
+Route::resource("solicitudes","solicitudeController");
