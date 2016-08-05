@@ -24,3 +24,4 @@ Route::resource("features","FeatureController");
 
 Route::resource("clients","ClientController");
 Route::resource("solicitudes","solicitudeController");
+Route::resource("status_solicitudes","StatusSolicitudeController");

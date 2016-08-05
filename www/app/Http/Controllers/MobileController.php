@@ -15,7 +15,7 @@ class MobileController extends Controller {
 	 */
 	public function index()
 	{
-		$mobiles = Mobile::orderBy('id', 'desc')->paginate(10);
+		$mobiles = Mobile::orderBy('id', 'asc')->paginate(10);
 
 		return view('mobiles.index', compact('mobiles'));
 	}

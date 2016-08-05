@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Client;
+use App\Solicitude;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller {
@@ -60,8 +61,9 @@ class ClientController extends Controller {
 	public function show($id)
 	{
 		$client = Client::findOrFail($id);
+		$solicitudes = Solicitude::where('id_client',$id)->orderBy('updated_at', 'desc')->paginate(10);
 
-		return view('clients.show', compact('client'));
+		return view('clients.show', compact('client', 'solicitudes'));
 	}
 
 	/**

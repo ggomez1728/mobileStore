@@ -1,15 +1,19 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Feature;
 // composer require laracasts/testdummy
-use Laracasts\TestDummy\Factory as TestDummy;
 
 class FeatureTableSeeder extends Seeder {
 
     public function run()
     {
-        // TestDummy::times(20)->create('App\Post');
+        $features = [ 'Rayones', 'No Touch ID', 'No Camara', 'No Enciende', 'No Carga', 'No se Escucha'];
+        foreach ($features as &$feature) {
+            Feature::create([
+                'name' => $feature
+            ]);
+        }
     }
 
 }

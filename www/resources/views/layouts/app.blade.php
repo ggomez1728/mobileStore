@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Hackersquad</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -47,14 +47,15 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Inicio</a></li>
-                    <li><a href="{{ url('/clients') }}">Clientes</a></li>
+                    <li><a href="{!! route('clients.index')  !!}">Clientes</a></li>
+                    <li><a href="{!! route('solicitudes.index')  !!}">Solicitudes</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Configuración
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/mobiles') }}">Moviles</a></li>
                             <li><a href="{{ url('/features') }}">Caracteristicas</a></li>
+                            <li><a href="{{ url('/status_solicitudes') }}">Estados de Sistema</a></li>
                         </ul>
                     </li>
 
@@ -82,7 +83,15 @@
         </div>
     </nav>
 
-    @yield('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                        @yield('content')
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

@@ -45,7 +45,9 @@
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif
-
+            <div class="well well-sm">
+                <a href="/mobiles/create" class="btn btn-primary">Nuevo Dispositivo</a>
+            </div>
         </div>
     </div>
 

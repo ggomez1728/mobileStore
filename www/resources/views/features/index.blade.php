@@ -45,7 +45,9 @@
             @else
                 <h3 class="text-center alert alert-info">Empty!</h3>
             @endif
-
+            <div class="well well-sm">
+                <a href="/features/create" class="btn btn-primary">Nueva Caracteristica</a>
+            </div>
         </div>
     </div>
 

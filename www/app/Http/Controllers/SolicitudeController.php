@@ -1,9 +1,14 @@
 <?php namespace App\Http\Controllers;
 
+use App\Client;
+use App\Feature;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Solicitude;
+use App\Mobile;
+
+use App\StatusSolicitude;
 use Illuminate\Http\Request;
 
 class SolicitudeController extends Controller {
@@ -16,7 +21,6 @@ class SolicitudeController extends Controller {
 	public function index()
 	{
 		$solicitudes = Solicitude::orderBy('id', 'desc')->paginate(10);
-
 		return view('solicitudes.index', compact('solicitudes'));
 	}
 
@@ -25,9 +29,14 @@ class SolicitudeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
-		return view('solicitudes.create');
+		$client = Client::findOrFail($request['user']);
+		$mobiles = Mobile::all();
+		$features = Feature::all();
+
+		$status_solicitudes = StatusSolicitude::all();
+		return view('solicitudes.create', compact('mobiles', 'status_solicitudes', 'client', 'features'));
 	}
 
 	/**
@@ -38,6 +47,9 @@ class SolicitudeController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		dd($request->features);
+		$vehicleString = implode(",", $request->get('features'));
+dd($vehicleString);
 		$solicitude = new Solicitude();
 
 		$solicitude->mobile = $request->input("mobile");
@@ -72,8 +84,9 @@ class SolicitudeController extends Controller {
 	public function edit($id)
 	{
 		$solicitude = Solicitude::findOrFail($id);
-
-		return view('solicitudes.edit', compact('solicitude'));
+		$mobiles = Mobile::all();
+		$status_solicitudes = StatusSolicitude::all();
+		return view('solicitudes.edit', compact('solicitude', 'mobiles', 'status_solicitudes'));
 	}
 
 	/**

@@ -4,7 +4,8 @@
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Solicitudes
-            <a class="btn btn-success pull-right" href="{{ route('solicitudes.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+            <a class="btn btn-success pull-right" href="{{ route('solicitudes.create') }}"><i
+                        class="glyphicon glyphicon-plus"></i> Create</a>
         </h1>
 
     </div>
@@ -16,37 +17,27 @@
             @if($solicitudes->count())
                 <table class="table table-condensed table-striped">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>MOBILE</th>
-                        <th>STATUS</th>
-                        <th> ID_CLIENT</th>
-                        <th> FAILS</th>
-                        <th>OTHERS</th>
-                            <th class="text-right">OPTIONS</th>
-                        </tr>
+                    <tr>
+                        <th>ID Ciente</th>
+                        <th>Dispositivo</th>
+                        <th>Estatus</th>
+                        <th> Cliente</th>
+                        <th class="text-right">Fecha</th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($solicitudes as $solicitude)
-                            <tr>
-                                <td>{{$solicitude->id}}</td>
-                                <td>{{$solicitude->mobile}}</td>
-                    <td>{{$solicitude->status}}</td>
-                    <td>{{$solicitude-> id_client}}</td>
-                    <td>{{$solicitude-> fails}}</td>
-                    <td>{{$solicitude->others}}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('solicitudes.show', $solicitude->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
-                                    <a class="btn btn-xs btn-warning" href="{{ route('solicitudes.edit', $solicitude->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                                    <form action="{{ route('solicitudes.destroy', $solicitude->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
+                    @foreach($solicitudes as $solicitude)
+                        <tr onclick="document.location = '{{ route('solicitudes.show', $solicitude->id) }}';">
+                            <td>{{$solicitude->id_client}}</td>
+                            <td>{{$solicitude->mobile_type->name}}</td>
+                            <td>{{$solicitude->state_type->title}}</td>
+                            <td>{{$solicitude->client->first_name . " ".$solicitude->client->last_name}}</td>
+                            <td class="text-right">
+                                {{$solicitude->updated_at}}
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
                 {!! $solicitudes->render() !!}
