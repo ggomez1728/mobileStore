@@ -47,19 +47,22 @@ class SolicitudeController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		dd($request->features);
-		$vehicleString = implode(",", $request->get('features'));
-dd($vehicleString);
-		$solicitude = new Solicitude();
 
+
+		$solicitude = new Solicitude();
 		$solicitude->mobile = $request->input("mobile");
         $solicitude->status = $request->input("status");
         $solicitude->id_client = $request->input("id_client");
         $solicitude->fails = $request->input("fails");
         $solicitude->others = $request->input("others");
 		$solicitude->save();
-
-		return redirect()->route('solicitudes.index')->with('message', 'Item created successfully.');
+		if($request->features != null){
+			$solicitude->features()->sync($request->features);
+		}
+		else{
+			$solicitude->features()->sync([]);
+		}
+		return redirect()->route('clients.show', $solicitude-> id_client)->with('message', 'Item created successfully.');
 	}
 
 	/**
@@ -85,8 +88,11 @@ dd($vehicleString);
 	{
 		$solicitude = Solicitude::findOrFail($id);
 		$mobiles = Mobile::all();
+		$features = Feature::all();
 		$status_solicitudes = StatusSolicitude::all();
-		return view('solicitudes.edit', compact('solicitude', 'mobiles', 'status_solicitudes'));
+
+		$features_check = $solicitude->features;
+		return view('solicitudes.edit', compact('solicitude', 'mobiles', 'features', 'features_check', 'status_solicitudes'));
 	}
 
 	/**
@@ -107,8 +113,13 @@ dd($vehicleString);
         $solicitude->others = $request->input("others");
 
 		$solicitude->save();
-
-		return redirect()->route('solicitudes.index')->with('message', 'Item updated successfully.');
+		if($request->features != null){
+			$solicitude->features()->sync($request->features);
+		}
+		else{
+			$solicitude->features()->sync([]);
+		}
+		return redirect()->route('clients.show', $solicitude-> id_client)->with('message', 'Item updated successfully.');
 	}
 
 	/**

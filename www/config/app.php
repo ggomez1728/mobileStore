@@ -160,7 +160,6 @@ return [
          * Qr-Code
          */
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-
         /*
          * Scaffolfing
          */

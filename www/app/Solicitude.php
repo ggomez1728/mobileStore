@@ -20,6 +20,8 @@ class Solicitude extends Model
      */
     protected $fillable = ['mobile', 'status', 'id_client', 'fails', 'others'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function client()
     {
         return $this->hasOne('App\Client', 'id', 'id_client');
@@ -33,5 +35,10 @@ class Solicitude extends Model
     public function state_type()
     {
         return $this->hasOne('App\StatusSolicitude', 'id', 'status');
+    }
+
+    public  function  features()
+    {
+        return $this->belongsToMany('App\Feature', 'feature_solicitude', 'solicitude_id', 'feature_id');
     }
 }

@@ -56,7 +56,7 @@
                         @endif
                     </div>
 
-                    <input type="hidden"  name="id_client" value="{{$solicitude-> id_client}}">
+                    <input type="hidden" name="id_client" value="{{$solicitude-> id_client}}">
 
                     <div class="form-group @if($errors->has('fails')) has-error @endif">
                         <label for="fails-field"> fails</label>
@@ -66,6 +66,25 @@
                             <span class="help-block">{{ $errors->first("fails") }}</span>
                         @endif
                     </div>
+                    <div class="form-group">
+                        <label for="status-field">Atributos</label>
+
+                        @foreach($features as $feature)
+                            <div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name='features[]' value="{{$feature->id}}"
+                                           @foreach($features_check as $feature_checked)
+                                                @if($feature_checked->id == $feature->id)
+                                                    checked
+                                                @endif
+                                            @endforeach
+                                            > {{$feature->name}}
+
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
                     <div class="form-group @if($errors->has('others')) has-error @endif">
                         <label for="others-field">Others</label>
                         <textarea class="form-control" id="others-field" rows="3"

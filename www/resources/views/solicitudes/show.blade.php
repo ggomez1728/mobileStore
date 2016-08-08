@@ -68,6 +68,27 @@
                             <p class="form-control-static">{{$solicitude->others}}</p>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <label for="others" class="col-sm-2 control-label">Atributos:</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <div class="col-md-1"></div>
+
+                        <label class="col-lg-9" for="status-field">
+
+
+                        @foreach($solicitude->features as $feature)
+                                <div class="col-lg-8">
+
+                                    <p class="form-control-static"><i class="glyphicon glyphicon-check"></i> {{$feature->name}}</p>
+                                </div>
+                            @endforeach
+                        </label>
+                    </div>
                 </form>
             </div>
         </div>

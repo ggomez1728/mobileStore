@@ -19,5 +19,6 @@ class Mobile extends Model
      * @var array
      */
     protected $fillable = ['name'];
+    protected $hidden = ['created_at', 'updated_at'];
 
 }

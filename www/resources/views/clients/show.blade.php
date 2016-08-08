@@ -83,6 +83,14 @@
                         </div>
                     </div>
                 </form>
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Codigo Qr:</label>
+
+                    {!! QrCode::size(300)->generate($qrCode)!!}
+
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -130,5 +138,7 @@
                 Atras</a>
         </div>
     </div>
+
+
 
 @endsection
