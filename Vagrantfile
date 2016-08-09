@@ -309,5 +309,7 @@ Vagrant.configure("2") do |config|
       sudo mysql -u root -proot -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';"
       sudo mysql -u root -proot -e "GRANT ALL PRIVILEGES ON master.* to 'admin'@'localhost' "
       cd /vagrant/www && php artisan migrate
+      php artisan migrate:refresh --seed
+      sudo mysql -u root -proot  < ../sqlFile.txt
   SHELL
 end

@@ -20,8 +20,11 @@ class SolicitudeController extends Controller {
 	 */
 	public function index()
 	{
-		$solicitudes = Solicitude::orderBy('id', 'desc')->paginate(10);
-		return view('solicitudes.index', compact('solicitudes'));
+		$solicitudes = Solicitude::orderBy('id', 'desc')->paginate(20);
+		$status_solicitudes = StatusSolicitude::all();
+		$mobiles = Mobile::all();
+
+		return view('solicitudes.index', compact('solicitudes', 'status_solicitudes', 'mobiles'));
 	}
 
 	/**

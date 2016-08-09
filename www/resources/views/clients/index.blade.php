@@ -16,6 +16,26 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
+                <div class="well well-sm">
+                    <form class="form-inline" action="{{ route('clients.search') }}"  method="POST">
+                        {!! csrf_field() !!}
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">ID:</label>
+                            <input type="text"  name="identify" class="form-control" id="identify" value="{{ old("identify") }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2">Nombre:</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="Nombre" value="{{ old("first_name") }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2">Apellido:</label>
+                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Apellido"  value="{{ old("last_name") }}">
+                        </div>
+                        <button type="submit" class="btn btn-default">Buscar Cliente</button>
+                    </form>
+                </div>
+
+
                 @if($clients->count())
                     <table class="table table-condensed table-striped">
                         <thead>

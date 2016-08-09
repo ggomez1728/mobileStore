@@ -82,14 +82,12 @@
                             <p class="form-control-static">{{$client->email}}</p>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Codigo Qr:</label>
+                        <img class="img-thumbnail"  src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate($qrCode)) !!} ">
+                    </div>
                 </form>
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Codigo Qr:</label>
 
-                    {!! QrCode::size(300)->generate($qrCode)!!}
-
-
-                </div>
 
             </div>
         </div>

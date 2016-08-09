@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group @if($errors->has('email')) has-error @endif">
                         <label for="email-field">Correo:</label>
-                        <input type="text" id="email-field" name="email" class="form-control"
+                        <input type="email" id="email-field" name="email" class="form-control"
                                placeholder="Correo" value="{{ old("email") }}"/>
                         @if($errors->has("email"))
                             <span class="help-block">{{ $errors->first("email") }}</span>

@@ -19,8 +19,10 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource("/mobiles","MobileController");
+Route::resource("mobiles","MobileController");
 Route::resource("features","FeatureController");
+Route::post("clients/search","ClientController@search")->name('clients.search');
+Route::get("clients/search","ClientController@index");
 
 Route::resource("clients","ClientController");
 Route::resource("solicitudes","solicitudeController");

@@ -20,7 +20,7 @@
 
                     <div class="form-group @if($errors->has('mobile')) has-error @endif">
                         <label for="mobile-field">Dispositivos</label>
-                        <select class="form-control" name="mobile">
+                        <select class="form-control  input-lg" name="mobile">
                             @foreach ($mobiles as $mobil)
                                 <option value="{{$mobil->id}}">{{$mobil->name}}</option>
                             @endforeach
@@ -44,7 +44,7 @@
 
                     <div class="form-group @if($errors->has('status')) has-error @endif">
                         <label for="status-field">Estatus</label>
-                        <select class="form-control" name="status">
+                        <select class="form-control  input-lg" name="status">
                             @foreach ($status_solicitudes as $state)
                                 <option value="{{$state->id}}">{{$state->title}}</option>
                             @endforeach

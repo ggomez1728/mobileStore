@@ -16,7 +16,7 @@ class ClientController extends Controller {
 	 */
 	public function index()
 	{
-		$clients = Client::orderBy('id', 'desc')->paginate(10);
+		$clients = Client::orderBy('id', 'asc')->paginate(20);
 
 		return view('clients.index', compact('clients'));
 	}
@@ -67,7 +67,7 @@ VERSION:3.0
 PRODID:-//Apple Inc.//iOS 8.1.2//EN
 N:". $client->last_name . ";". $client->first_name . ";;;
 FN:". $client->first_name . " ". $client->last_name ."
-ORG:1468;
+ORG:".$client->id.";
 EMAIL;type=INTERNET;type=WORK;type=pref:". $client->email . "
 TEL;type=HOME;type=VOICE;type=pref:". $client->phone_number ."
 REV:2015-04-22T19:51:10Z
@@ -120,6 +120,19 @@ END:VCARD";
 		$client->delete();
 
 		return redirect()->route('clients.index')->with('message', 'Item deleted successfully.');
+	}
+
+	public function search(Request $request)
+	{
+		if ($request->identify != null ||  $request->first_name != null ||  $request->last_name != null){
+			$clients = Client::where('id', 'like', $request->identify ."%")->where('first_name', 'like', "%".$request->first_name ."%")->where('last_name', 'like', "%".$request->last_name ."%")->orderBy('id', 'asc')->paginate(20);
+
+			return view('clients.index', compact('clients', $request));
+
+		}
+
+
+		return redirect()->route('clients.index')->with('message', 'Item updated successfully.');
 	}
 
 }

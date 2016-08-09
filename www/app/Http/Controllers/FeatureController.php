@@ -15,7 +15,7 @@ class FeatureController extends Controller {
 	 */
 	public function index()
 	{
-		$features = Feature::orderBy('id', 'asc')->paginate(10);
+		$features = Feature::orderBy('id', 'asc')->paginate(20);
 
 		return view('features.index', compact('features'));
 	}

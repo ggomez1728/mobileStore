@@ -14,6 +14,47 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <div class="well well-sm">
+                <form class="form-inline" action="{{ route('clients.search') }}" method="POST">
+                    {!! csrf_field() !!}
+                    <div>
+                        <div class="form-group">
+                            <label for="exampleInputName2">Dispositivo:</label>
+                            <select class="form-control" name="mobile">
+                                @foreach ($mobiles as $mobil)
+                                    <option value="{{$mobil->id}}">{{$mobil->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName2">Estado:</label>
+                            <select class="form-control" name="status">
+                                @foreach ($status_solicitudes as $state)
+                                    <option value="{{$state->id}}">{{$state->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Desde:</label>
+                            <input type="date" name="identify" class="form-control" id="identify"
+                                   value="{{ old("identify") }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Hasta:</label>
+                            <input type="date" name="identify" class="form-control" id="identify"
+                                   value="{{ old("identify") }}">
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit" class="btn btn-default">Buscar Solicitud</button>
+                    </div>
+                </form>
+            </div>
             @if($solicitudes->count())
                 <table class="table table-condensed table-striped">
                     <thead>
@@ -42,7 +83,7 @@
                 </table>
                 {!! $solicitudes->render() !!}
             @else
-                <h3 class="text-center alert alert-info">Empty!</h3>
+                <h3 class="text-center alert alert-info">No hay Clientes!</h3>
             @endif
 
         </div>

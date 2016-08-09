@@ -15,7 +15,7 @@ class StatusSolicitudeController extends Controller {
 	 */
 	public function index()
 	{
-		$status_solicitudes = StatusSolicitude::orderBy('id', 'asc')->paginate(10);
+		$status_solicitudes = StatusSolicitude::orderBy('id', 'asc')->paginate(20);
 
 		return view('status_solicitudes.index', compact('status_solicitudes'));
 	}
