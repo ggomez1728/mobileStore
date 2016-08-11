@@ -21,9 +21,12 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource("mobiles","MobileController");
 Route::resource("features","FeatureController");
-Route::post("clients/search","ClientController@search")->name('clients.search');
-Route::get("clients/search","ClientController@index");
 
+Route::get("clients/generate","ClientController@generate")->name('clients.generate');
+Route::get("clients/backup","ClientController@backup")->name('clients.backup');
+Route::get("clients/search","ClientController@search")->name('clients.search');
 Route::resource("clients","ClientController");
+
+Route::get("solicitudes/search","solicitudeController@search")->name('solicitudes.search');
 Route::resource("solicitudes","solicitudeController");
 Route::resource("status_solicitudes","StatusSolicitudeController");

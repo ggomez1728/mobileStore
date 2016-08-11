@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group @if($errors->has('phone_number')) has-error @endif">
                         <label for="phone_number-field">Numero Celular:</label>
-                        <input type="text" id="phone_number-field" name="phone_number" class="form-control"
+                        <input type="tel" id="phone_number-field" name="phone_number" class="form-control"
                                placeholder="Numero Celular" value="{{ old("phone_number") }}"/>
                         @if($errors->has("phone_number"))
                             <span class="help-block">{{ $errors->first("phone_number") }}</span>

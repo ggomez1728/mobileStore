@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="form-inline" action="{{ route('clients.search') }}" method="POST">
-                    {!! csrf_field() !!}
+                <form class="form-inline" action="{{ route('solicitudes.search') }}" method="GET">
                     <div>
                         <div class="form-group">
                             <label for="exampleInputName2">Dispositivo:</label>
                             <select class="form-control" name="mobile">
+                                <option value="">Todos</option>
                                 @foreach ($mobiles as $mobil)
                                     <option value="{{$mobil->id}}">{{$mobil->name}}</option>
                                 @endforeach
@@ -29,7 +29,8 @@
                         <div class="form-group">
                             <label for="exampleInputName2">Estado:</label>
                             <select class="form-control" name="status">
-                                @foreach ($status_solicitudes as $state)
+                                <option value="">Todas</option>
+                            @foreach ($status_solicitudes as $state)
                                     <option value="{{$state->id}}">{{$state->title}}</option>
                                 @endforeach
                             </select>
@@ -40,18 +41,18 @@
                     <div>
                         <div class="form-group">
                             <label for="exampleInputEmail2">Desde:</label>
-                            <input type="date" name="identify" class="form-control" id="identify"
+                            <input type="date" name="date_from" class="form-control" id="identify"
                                    value="{{ old("identify") }}">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail2">Hasta:</label>
-                            <input type="date" name="identify" class="form-control" id="identify"
+                            <input type="date" name="date_to" class="form-control" id="identify"
                                    value="{{ old("identify") }}">
                         </div>
                     </div>
                     <br>
                     <div>
-                        <button type="submit" class="btn btn-default">Buscar Solicitud</button>
+                        <button type="submit" class="btn  btn-primary">Buscar Solicitud</button>
                     </div>
                 </form>
             </div>
@@ -59,7 +60,6 @@
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
-                        <th>ID Ciente</th>
                         <th>Dispositivo</th>
                         <th>Estatus</th>
                         <th> Cliente</th>
@@ -70,7 +70,6 @@
                     <tbody>
                     @foreach($solicitudes as $solicitude)
                         <tr onclick="document.location = '{{ route('solicitudes.show', $solicitude->id) }}';">
-                            <td>{{$solicitude->id_client}}</td>
                             <td>{{$solicitude->mobile_type->name}}</td>
                             <td>{{$solicitude->state_type->title}}</td>
                             <td>{{$solicitude->client->first_name . " ".$solicitude->client->last_name}}</td>
@@ -83,7 +82,7 @@
                 </table>
                 {!! $solicitudes->render() !!}
             @else
-                <h3 class="text-center alert alert-info">No hay Clientes!</h3>
+                <h3 class="text-center alert alert-info">No hay Solicitudes!</h3>
             @endif
 
         </div>

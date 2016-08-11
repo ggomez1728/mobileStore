@@ -14,6 +14,15 @@ use Illuminate\Http\Request;
 class SolicitudeController extends Controller {
 
 	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -139,4 +148,37 @@ class SolicitudeController extends Controller {
 		return redirect()->route('solicitudes.index')->with('message', 'Item deleted successfully.');
 	}
 
+	public function search(Request $request)
+	{
+		$status_solicitudes = StatusSolicitude::all();
+		$mobiles = Mobile::all();
+		if ($request->mobile != null){
+			$filter['mobile'] = $request->mobile;
+		}
+		if ($request->status != null){
+			$filter['status'] = $request->status;
+		}
+		if ($request->date_from != null){
+			$filter['date_from'] = $request->date_from;
+		}
+		if ($request->date_to != null){
+			$filter['date_to'] = $request->date_to;
+		}
+		if($request->date_from != null ){
+			$date_to = $request->date_to;
+			if($date_to == null){
+				$date_to = $request->date_from;
+			}
+			$solicitudes = Solicitude::whereBetween('created_at', [$request->date_from, $date_to])->orderBy('id', 'asc')->paginate(20);
+			return view('solicitudes.index', compact('solicitudes', 'status_solicitudes', 'mobiles'));
+		}
+		if ($request->mobile != null ||  $request->status != null ||  $request->date_from != null){
+			$solicitudes = Solicitude::where('mobile', 'like', $request->mobile . "%")->where('status', 'like', "%".$request->status ."%")->orderBy('id', 'asc')->paginate(20);
+			$solicitudes->appends($filter);
+
+			return view('solicitudes.index', compact('solicitudes', 'status_solicitudes', 'mobiles'));
+		}
+
+		return redirect()->route('solicitudes.index')->with('message', 'Item updated successfully.');
+	}
 }

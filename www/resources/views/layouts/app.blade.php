@@ -39,34 +39,26 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    hackersquad
-                </a>
+                <img class="img-rounded" src="{{asset("/resources/images/logo-hackersquad.png")}}" style="height:50px;">
+
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
+                @if (!Auth::guest())
                 <ul class="nav navbar-nav">
                     <li><a href="{!! route('clients.index')  !!}">Clientes</a></li>
                     <li><a href="{!! route('solicitudes.index')  !!}">Solicitudes</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Configuración
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/mobiles') }}">Moviles</a></li>
-                            <li><a href="{{ url('/features') }}">Caracteristicas</a></li>
-                            <li><a href="{{ url('/status_solicitudes') }}">Estados de Sistema</a></li>
-                        </ul>
-                    </li>
 
                 </ul>
-
+                @endif
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
+
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -75,6 +67,16 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Configuración
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('/mobiles') }}">Moviles</a></li>
+                                <li><a href="{{ url('/features') }}">Caracteristicas</a></li>
+                                <li><a href="{{ url('/status_solicitudes') }}">Estados de Sistema</a></li>
+                                <li><a href="{{ url('clients/backup') }}">Respaldar datos</a></li>
                             </ul>
                         </li>
                     @endif
