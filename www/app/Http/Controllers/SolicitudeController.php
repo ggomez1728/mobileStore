@@ -86,8 +86,11 @@ class SolicitudeController extends Controller {
 	public function show($id)
 	{
 		$solicitude = Solicitude::findOrFail($id);
-
-		return view('solicitudes.show', compact('solicitude'));
+		$quantyStatus = StatusSolicitude::all()->count();
+		if($solicitude->status < $quantyStatus){
+			$nextStatus = StatusSolicitude::findOrFail($solicitude->status+1);
+		}
+		return view('solicitudes.show', compact('solicitude', 'nextStatus'));
 	}
 
 	/**
@@ -132,6 +135,15 @@ class SolicitudeController extends Controller {
 			$solicitude->features()->sync([]);
 		}
 		return redirect()->route('clients.show', $solicitude-> id_client)->with('message', 'Item updated successfully.');
+	}
+
+	public function updateStatus(Request $request, $id, $status)
+	{
+		$solicitude = Solicitude::findOrFail($id);
+		$solicitude->status = $status;
+		$solicitude->save();
+		return redirect()->route('solicitudes.show', $solicitude->id)->with('message', 'Item updated successfully.');
+
 	}
 
 	/**

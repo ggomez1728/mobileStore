@@ -17,20 +17,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="well well-sm">
-                    <form class="form-inline" action="{{ route('clients.search') }}"  method="GET">
+                    <form class="form-inline" action="{{ route('clients.search') }}" method="GET">
+
+                        <select class="form-control  input-lg" name="search">
+                            <option value="id">ID</option>
+                            <option value="first_name">Nombre</option>
+                            <option value="last_name">Apellido</option>
+                            <option value="phone">Numero Celular</option>
+                            <option value="email">Correo</option>
+                        </select>
+
                         <div class="form-group">
-                            <label for="exampleInputEmail2">ID:</label>
-                            <input type="text"  name="identify" class="form-control" id="identify" value="{{ old("identify") }}">
+                            <input type="text" name="dataSearch" class="form-control" id="identify"
+                                  placeholder="Que Buscas?" value="{{ old("identify") }}">
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputName2">Nombre:</label>
-                            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="Nombre" value="{{ old("first_name") }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputName2">Apellido:</label>
-                            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Apellido"  value="{{ old("last_name") }}">
-                        </div>
-                        <button type="submit" class="btn  btn-primary">Buscar Cliente</button>
+
+                        <button type="submit" class="btn  btn-primary">Encontrar</button>
                     </form>
                 </div>
 
@@ -40,7 +42,6 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cedula</th>
                             <th>Cliente</th>
                             <th>Numero Celular</th>
                             <th class="text-right">Correo</th>
@@ -50,9 +51,8 @@
                         <tbody>
                         @foreach($clients as $client)
 
-                        <tr onclick="document.location = '{{ route('clients.show', $client->id) }}';">
-                            <td>{{$client->id}}</td>
-                                <td>{{$client->identify}}</td>
+                            <tr onclick="document.location = '{{ route('clients.show', $client->id) }}';">
+                                <td>{{$client->id}}</td>
                                 <td>{{$client->first_name ." ". $client->last_name}}</td>
                                 <td>{{$client->phone_number}}</td>
                                 <td class="text-right">{{$client->email}}</td>
@@ -65,9 +65,6 @@
                 @else
                     <h3 class="text-center alert alert-info">Empty!</h3>
                 @endif
-                <div class="well well-sm">
-                    <a href="/clients/create" class="btn btn-primary">Nuevo Cliente</a>
-                </div>
             </div>
         </div>
     </div>

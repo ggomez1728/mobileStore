@@ -136,22 +136,29 @@ END:VCARD";
 
 	public function search(Request $request)
 	{
-		if ($request->identify != null){
-			$filter['identify'] = $request->identify;
-		}
-		if ($request->first_name != null){
-			$filter['first_name'] = $request->first_name;
-		}
-		if ($request->last_name != null){
-			$filter['last_name'] = $request->last_name;
-		}
-		if ($request->identify != null ||  $request->first_name != null ||  $request->last_name != null){
-			$clients = Client::where('id', 'like', $request->identify . "%")->where('first_name', 'like', "%".$request->first_name ."%")->where('last_name', 'like', "%".$request->last_name ."%")->orderBy('id', 'asc')->paginate(20);
-			$clients->appends($filter);
-			return view('clients.index', compact('clients', $request));
-		}
 
-		return redirect()->route('clients.index')->with('message', 'Item updated successfully.');
+		$filter['search'] = $request->search;
+		$filter['dataSearch'] = $request->dataSearch;
+
+		if ($request->search == "id"){
+			$clients = Client::where('id', 'like', $request->dataSearch . "%")->orderBy('id', 'asc')->paginate(20);
+		}
+		else if ($request->search == "first_name"){
+			$clients = Client::where('first_name', 'like', $request->dataSearch . "%")->orderBy('id', 'asc')->paginate(20);
+		}
+		else if ($request->search == "last_name"){
+			$clients = Client::where('last_name', 'like', $request->dataSearch . "%")->orderBy('id', 'asc')->paginate(20);
+		}
+		else if ($request->search == "phone"){
+			$clients = Client::where('phone_number', 'like', "%" .$request->dataSearch . "%")->orderBy('id', 'asc')->paginate(20);
+		}
+		else if ($request->search == "email"){
+			$clients = Client::where('email', 'like', $request->dataSearch . "%")->orderBy('id', 'asc')->paginate(20);
+		}
+		$clients->appends($filter);
+		return view('clients.index', compact('clients', $request));
+
+
 	}
 
 	public function backup(){
