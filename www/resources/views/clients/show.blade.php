@@ -48,13 +48,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="identify" class="col-sm-2 control-label">Cedula</label>
-
-                        <div class="col-sm-10">
-                            <p class="form-control-static">{{$client->identify}}</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="first_name" class="col-sm-2 control-label">Nombre:</label>
 
                         <div class="col-sm-10">
@@ -69,7 +62,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone_number" class="col-sm-2 control-label">Numero celular:</label>
+                        <label for="phone_number" class="col-sm-2 control-label">Numero Telefónico:</label>
 
                         <div class="col-sm-10">
                             <p class="form-control-static">{{$client->phone_number}}</p>

@@ -14,6 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('test', function () {
+    $pdf = App::make('dompdf.wrapper');
+    $customPaper = array(0,0,360,360);
+    $squema = '<h1>Hackersquad</h1>
+                <h1>testeo</h1>';
+    $pdf->loadHTML($squema)->setPaper($customPaper, 'landscape');
+    return $pdf->stream();
+});
 
 Route::auth();
 

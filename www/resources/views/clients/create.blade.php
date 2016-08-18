@@ -20,15 +20,6 @@
 
                 <form action="{{ route('clients.store') }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                    <div class="form-group @if($errors->has('identify')) has-error @endif">
-                        <label for="identify-field">Cedula:</label>
-                        <input type="text" id="identify-field" name="identify" class="form-control"
-                               placeholder="Cedula" value="{{ old("identify") }}"/>
-                        @if($errors->has("identify"))
-                            <span class="help-block">{{ $errors->first("identify") }}</span>
-                        @endif
-                    </div>
                     <div class="form-group @if($errors->has('first_name')) has-error @endif">
                         <label for="first_name-field">Nombre:</label>
                         <input type="text" id="first_name-field" name="first_name" class="form-control"

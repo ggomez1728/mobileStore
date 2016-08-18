@@ -100,6 +100,7 @@
                 <a class="btn btn-primary btn-lg btn-block"
                    href="{{ route('solicitudes.updateStatus', [$solicitude->id, $nextStatus->id] ) }}"><i
                             class="glyphicon glyphicon-edit"></i> {{$nextStatus->title}}</a>
+            <br>
             @endif
             <div class="well well-sm">
 

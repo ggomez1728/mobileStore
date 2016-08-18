@@ -20,14 +20,6 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <div class="form-group @if($errors->has('identify')) has-error @endif">
-                        <label for="identify-field">Identify</label>
-                        <input type="text" id="identify-field" name="identify" class="form-control"
-                               value="{{ is_null(old("identify")) ? $client->identify : old("identify") }}"/>
-                        @if($errors->has("identify"))
-                            <span class="help-block">{{ $errors->first("identify") }}</span>
-                        @endif
-                    </div>
                     <div class="form-group @if($errors->has('first_name')) has-error @endif">
                         <label for="first_name-field">First_name</label>
                         <input type="text" id="first_name-field" name="first_name" class="form-control"

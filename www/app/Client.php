@@ -18,7 +18,7 @@ class Client extends Model
      *
      * @var array
      */
-    protected $fillable = ['identify', 'first_name', 'last_name', 'phone_number', 'email'];
+    protected $fillable = ['first_name', 'last_name', 'phone_number', 'email'];
 
     public function solicitudes()
     {
