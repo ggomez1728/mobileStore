@@ -18,118 +18,94 @@ Route::get('test', function () {
     $pdf = App::make('dompdf.wrapper');
     $customPaper = array(0, 0, 250, 310);
     $squema = '<html>
-  <style>
-body {
-    margin: -1cm 0cm -2cm -0.7cm;
-    height: 300px;
-    line-height: 20px;
-}
+ <style type="text/css">
+ 		body{
+ 			margin: -1cm  -1cm -1cm;
+ 			font-family: "Roboto", sans-serif;
+ 		}
+		.card {
+		    width: 310px;
+		    height: 250px;
+			text-align: center;
+			padding: 0;
+			 margin:0px;
+		}
+		.information {
+			width: 160px;
+			float: left;
+			height: 250px;
+			z-index: 100;
+			text-align: center;
 
-  </style>
-  <head>
-
-</head>
-
+		}
+		.information > img {
+		height: 80px;
+		margin: 60px 30px 0 20px;
+		}
+		.information > span{
+			font-size: 0.9em;
+		}
+		.qr {
+			width: 210px;
+			float: left;
+			height: 250px;
+			margin: 0 auto;
+		}
+		.qr > img {
+		  	margin-top: -25px;
+		  	margin-left: -60px;
+		}
+		.footer{
+			float: left;
+			margin: 0 auto;
+			height: 67px;
+			text-align: center;
+		}
+		.footer > span:nth-child(1){
+			font-size: 1.2em;
+		}
+		.footer > span:nth-child(2){
+			font-size: 1.1em;
+		}
+		.footer > span:nth-child(3){
+			font-size: 0.8em;
+		}
+	</style>
   <body>
-<table width=100%>
-  <tr height=300px>
-      <td width =40px>
-      <img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '" style="height:70px;">
-      <p>Telf.: +58 251 935 2220</p>
-      </td>
-    <td ><img class="img-thumbnail"  src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(270)->generate("hola")) . '"></td>
-  </tr>
-</table>
-
- <div>hackersquad@icloud.com</div>
-<div>www.HackerSquad.net</div>
-<div>V-20472849-2</div>
+  <div class="card">
+		<div class="information">
+      		<img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '">
+			<span>Telf.: +58 251 9352220</span>
+		</div><div class="qr">
+    		<img src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(300)->generate("hola")) . '">
+		</div>
+	</div>
+	<div class="footer">
+		<span>hackersquad@icloud.com</span>
+		<br>
+		<span>www.HackerSquad.net</span>
+		<br>
+		<span>V-20472849-2</span>
+	</div>
 
 </body>
-
 </html>
 ';
 
-    $ddff = '<html>
-<head>
-  <style>
-    body{
-      font-family: sans-serif;
-    }
-    @page {
-      margin: 160px 50px;
-    }
-    header { position: fixed;
-      left: -50px;
-      top: -160px;
-      right: 0px;
-      height: 100px;
-      background-color: #ddd;
-      text-align: center;
-    }
-    header h1{
-      margin: 10px 0;
-    }
-    header h2{
-      margin: 0 0 10px 0;
-    }
-    footer {
-      position: fixed;
-      left: 0px;
-      bottom: -50px;
-      right: 0px;
-      height: 40px;
-      border-bottom: 2px solid #ddd;
-    }
-    footer .page:after {
-      content: counter(page);
-    }
-    footer table {
-      width: 100%;
-    }
-    footer p {
-      text-align: right;
-    }
-    footer .izq {
-      text-align: left;
-    }
-  </style>
-<body>
-  <header>
-    <h1>Cabecera de mi documento</h1>
-    <h2>DesarrolloWeb.com</h2>
-  </header>
-  <footer>
 
-    <table>
-      <tr>
-        <td>
-            <p class="izq">
-              Desarrolloweb.com
-            </p>
-        </td>
-        <td>
-          <p class="page">
-            Página
-          </p>
-        </td>
-      </tr>
-    </table>
-  </footer>
-  <div id="content">
-    <p>
-      Lorem ipsum dolor sit...
-    </p><p>
-    Vestibulum pharetra fermentum fringilla...
-    </p>
-    <p style="page-break-before: always;">
-    Podemos romper la página en cualquier momento...</p>
-    </p><p>
-    Praesent pharetra enim sit amet...
-    </p>
-  </div>
-</body>
-</html>';
+    $test = '<table width=100%>
+  <tr height=200px>
+      <td width =40px>
+      <img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '" style="height:70px;">
+
+      </td>
+    <img class="img-responsive"  src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(200)->generate("hola")) . '">
+  </tr>
+</table>
+<div>hackersquad@icloud.com</div>
+<div>www.HackerSquad.net</div>
+<div>V-20472849-2</div>
+';
     $pdf->loadHTML($squema)->setPaper($customPaper, 'landscape');
     return $pdf->stream();
 });
@@ -141,6 +117,7 @@ Route::get('/home', 'HomeController@index');
 Route::resource("mobiles", "MobileController");
 Route::resource("features", "FeatureController");
 
+Route::get("clients/printCard/{id}", "ClientController@printCard")->name('clients.printCard');
 Route::get("clients/generate", "ClientController@generate")->name('clients.generate');
 Route::get("clients/backup", "ClientController@backup")->name('clients.backup');
 Route::get("clients/search", "ClientController@search")->name('clients.search');

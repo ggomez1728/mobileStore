@@ -7,6 +7,8 @@ use App\Client;
 use App\Solicitude;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ClientController extends Controller {
 
@@ -83,6 +85,102 @@ TEL;type=HOME;type=VOICE;type=pref:". $client->phone_number ."
 REV:2015-04-22T19:51:10Z
 END:VCARD";
 		return view('clients.show', compact('client', 'solicitudes', 'qrCode'));
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return PDF
+	 */
+	public function printCard($id){
+		$client = Client::findOrFail($id);
+		$qrCode = "BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 8.1.2//EN
+N:". $client->last_name . ";". $client->first_name . ";;;
+FN:". $client->first_name . " ". $client->last_name ."
+ORG:".$client->id.";
+EMAIL;type=INTERNET;type=WORK;type=pref:". $client->email . "
+TEL;type=HOME;type=VOICE;type=pref:". $client->phone_number ."
+REV:2015-04-22T19:51:10Z
+END:VCARD";
+		$pdf = App::make('dompdf.wrapper');
+		$customPaper = array(0, 0, 250, 310);
+		$squema = '<html>
+ 	<style type="text/css">
+ 		body{
+ 			margin: -1cm  -1cm -1cm;
+ 			font-family: "Roboto", sans-serif;
+ 		}
+		.card {
+		    width: 310px;
+		    height: 250px;
+			text-align: center;
+			padding: 0;
+			 margin:0px;
+		}
+		.information {
+			width: 160px;
+			float: left;
+			height: 250px;
+			z-index: 100;
+			text-align: center;
+		}
+		.information > img {
+		height: 80px;
+		margin: 60px 30px 0 20px;
+		}
+		.information > span{
+			font-size: 0.9em;
+		}
+		.qr {
+			width: 210px;
+			float: left;
+			height: 250px;
+			margin: 0 auto;
+		}
+		.qr > img {
+		  	margin-top: -25px;
+		  	margin-left: -60px;
+		}
+		.footer{
+			float: left;
+			margin: 0 auto;
+			height: 67px;
+			text-align: center;
+		}
+		.footer > span:nth-child(1){
+			font-size: 1.2em;
+		}
+		.footer > span:nth-child(2){
+			font-size: 1.1em;
+		}
+		.footer > span:nth-child(3){
+			font-size: 0.8em;
+		}
+	</style>
+  <body>
+  <div class="card">
+		<div class="information">
+      		<img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '">
+			<span>Telf.: +58 251 9352220</span>
+		</div><div class="qr">
+    		<img src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(300)->generate($qrCode)) . '">
+		</div>
+	</div>
+	<div class="footer">
+		<span>hackersquad@icloud.com</span>
+		<br>
+		<span>www.HackerSquad.net</span>
+		<br>
+		<span>V-20472849-2</span>
+	</div>
+</body>
+</html>';
+		$pdf->loadHTML($squema)->setPaper($customPaper, 'landscape');
+		return $pdf->stream();
 	}
 
 	/**
