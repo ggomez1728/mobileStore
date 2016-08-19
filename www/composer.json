@@ -9,7 +9,8 @@
         "simplesoftwareio/simple-qrcode": "~1",
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "^5.2",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "spatie/laravel-backup": "^3.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

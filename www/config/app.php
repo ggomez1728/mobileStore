@@ -175,6 +175,10 @@ return [
          */
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        /*
+        * Backups
+        */
+        //Spatie\Backup\BackupServiceProvider::class,
     ],
 
     /*
@@ -234,6 +238,8 @@ return [
          * PDF
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+
 
     ],
 
