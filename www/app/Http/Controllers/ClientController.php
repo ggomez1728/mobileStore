@@ -106,79 +106,89 @@ EMAIL;type=INTERNET;type=WORK;type=pref:". $client->email . "
 TEL;type=HOME;type=VOICE;type=pref:". $client->phone_number ."
 REV:2015-04-22T19:51:10Z
 END:VCARD";
-		$pdf = App::make('dompdf.wrapper');
-		$customPaper = array(0, 0, 250, 310);
-		$squema = '<html>
+	$pdf = App::make('dompdf.wrapper');	
+	$customPaper = array(0, 0, 143, 176);
+	$squema = '<html>
  	<style type="text/css">
  		body{
- 			margin: -1cm  -1cm -1cm;
  			font-family: "Roboto", sans-serif;
  		}
 		.card {
-		    width: 310px;
-		    height: 250px;
+		    width: 62mm;
+		    height: 50mm;
+		    float: left;
 			text-align: center;
 			padding: 0;
-			 margin:0px;
+			margin:-45px -45px;
+			z-index: 100;
 		}
 		.information {
-			width: 160px;
 			float: left;
-			height: 250px;
-			z-index: 100;
-			text-align: center;
+			margin-top: 50px;
+			margin-left: -130px;
 		}
 		.information > img {
-		height: 80px;
-		margin: 60px 30px 0 20px;
+		height: 45px;
 		}
 		.information > span{
-			font-size: 0.9em;
+			font-size: 0.4em;
 		}
 		.qr {
-			width: 210px;
 			float: left;
-			height: 250px;
-			margin: 0 auto;
 		}
 		.qr > img {
-		  	margin-top: -25px;
-		  	margin-left: -60px;
+			margin-top: 4px;
+			margin-left: 86px;
+
 		}
 		.footer{
 			float: left;
-			margin: 0 auto;
-			height: 67px;
+			font-size: 0.6em;
 			text-align: center;
+			margin-top: 144px;
 		}
-		.footer > span:nth-child(1){
-			font-size: 1.2em;
+		.footer1{
+			float: left;
+			font-size: 0.55em;
+			text-align: center;
+			margin-top: 155px;
 		}
-		.footer > span:nth-child(2){
-			font-size: 1.1em;
+		.footer2{
+			float: left;
+			font-size: 0.55em;
+			text-align: center;
+			margin-top: 166px;
 		}
-		.footer > span:nth-child(3){
-			font-size: 0.8em;
-		}
+	
 	</style>
   <body>
-  <div class="card">
-		<div class="information">
-      		<img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '">
-			<span>Telf.: +58 251 9352220</span>
-		</div><div class="qr">
-    		<img src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(300)->generate($qrCode)) . '">
-		</div>
+ 
+    <div class="card">
+ 	<div class="qr">
+    	<img src="data:image/png;base64,' . base64_encode(QrCode::format("png")->size(1200)->generate($qrCode)) . ' height="152" width="152">
 	</div>
+	<div class="information">
+    	<img class="img-rounded" src="' . asset("/resources/images/logo-hackersquad.png") . '">
+    	<br>
+    	<span>Telf.: +58 251 9352220</span>
+	</div>
+
 	<div class="footer">
 		<span>hackersquad@icloud.com</span>
-		<br>
+	</div>
+	<div class="footer1">
 		<span>www.HackerSquad.net</span>
-		<br>
+	</div>
+	<div class="footer2">
 		<span>V-20472849-2</span>
 	</div>
+	</div>
+	
+  </div>
 </body>
 </html>';
+
+		
 		$pdf->loadHTML($squema)->setPaper($customPaper, 'landscape');
 		return $pdf->stream();
 	}
